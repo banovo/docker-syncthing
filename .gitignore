@@ -1,0 +1,6 @@
+.idea
+docker-compose.env.local
+data/stdiscosrv/*
+!data/stdiscosrv/.gitkeep
+config/stdiscosrv/*
+!config/stdiscosrv/.gitkeep

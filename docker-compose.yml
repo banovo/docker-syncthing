@@ -1,0 +1,27 @@
+### Notes
+#
+# - some environment variables are needed to make sure this docker-compose config file works
+#
+version: '2'
+
+services:
+    stdiscosrv:
+        build: images/stdiscosrv
+        hostname: stdiscosrv
+        container_name: stdiscosrv
+        ports:
+            - "8443:8443"
+        volumes:
+            - ./config/stdiscosrv:/opt/stdiscosrv/etc
+            - ./data/stdiscosrv:/opt/stdiscosrv/var
+        env_file:
+            - docker-compose.env
+            - docker-compose.env.local
+        command: ["stdiscosrv",
+                  "-cert", "/opt/stdiscosrv/etc/cert.pem",
+                  "-key", "/opt/stdiscosrv/etc/key.pem",
+                  "-limit-avg", "10",
+                  "-limit-cache", "25000",
+                  "-stats-file", "/opt/stdiscosrv/var/stats",
+                  "-db-dsn", "file:///opt/stdiscosrv/var/stdiscosrv.db"]
+        restart: always
