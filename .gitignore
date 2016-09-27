@@ -4,3 +4,5 @@ data/stdiscosrv/*
 !data/stdiscosrv/.gitkeep
 config/stdiscosrv/*
 !config/stdiscosrv/.gitkeep
+config/strelaysrv/*
+!config/strelaysrv/.gitkeep

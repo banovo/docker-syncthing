@@ -14,14 +14,27 @@ services:
         volumes:
             - ./config/stdiscosrv:/opt/stdiscosrv/etc
             - ./data/stdiscosrv:/opt/stdiscosrv/var
-        env_file:
-            - docker-compose.env
-            - docker-compose.env.local
-        command: ["stdiscosrv",
-                  "-cert", "/opt/stdiscosrv/etc/cert.pem",
-                  "-key", "/opt/stdiscosrv/etc/key.pem",
-                  "-limit-avg", "10",
-                  "-limit-cache", "25000",
-                  "-stats-file", "/opt/stdiscosrv/var/stats",
-                  "-db-dsn", "file:///opt/stdiscosrv/var/stdiscosrv.db"]
+        environment:
+            - CONTAINER_NAME=stdiscosrv
+            - CONTAINER_USER=run
+            - LOCAL_GID=1000
+            - LOCAL_UID=1000
+        command: 'stdiscosrv -cert /opt/stdiscosrv/etc/cert.pem -key /opt/stdiscosrv/etc/key.pem -limit-avg 10 -limit-cache 25000 -stats-file /opt/stdiscosrv/var/stats -db-dsn file:///opt/stdiscosrv/var/stdiscosrv.db'
+        restart: always
+
+    strelaysrv:
+        build: images/strelaysrv
+        hostname: strelaysrv
+        container_name: strelaysrv
+        ports:
+            - "443:22067"
+            - "22070:22070"
+        volumes:
+            - ./config/strelaysrv:/opt/strelaysrv/etc
+        environment:
+            - CONTAINER_NAME=strelaysrv
+            - CONTAINER_USER=run
+            - LOCAL_GID=1000
+            - LOCAL_UID=1000
+        command: 'strelaysrv -keys /opt/strelaysrv/etc -debug -ext-address=":443" -listen=":22067" -status-srv=":22070" -pools="" -provided-by="Banovo GmbH"'
         restart: always
