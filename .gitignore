@@ -6,3 +6,8 @@ config/stdiscosrv/*
 !config/stdiscosrv/.gitkeep
 config/strelaysrv/*
 !config/strelaysrv/.gitkeep
+config/syncthing/*
+!config/syncthing/.gitkeep
+data/syncthing/*
+!data/syncthing/.gitkeep
+test

@@ -16,9 +16,9 @@ services:
             - ./data/stdiscosrv:/opt/stdiscosrv/var
         environment:
             - CONTAINER_NAME=stdiscosrv
-            - CONTAINER_USER=run
-            - LOCAL_GID=1000
-            - LOCAL_UID=1000
+        env_file:
+            - docker-compose.env
+            - docker-compose.local.env
         command: 'stdiscosrv -cert /opt/stdiscosrv/etc/cert.pem -key /opt/stdiscosrv/etc/key.pem -limit-avg 10 -limit-cache 25000 -stats-file /opt/stdiscosrv/var/stats -db-dsn file:///opt/stdiscosrv/var/stdiscosrv.db'
         restart: always
 
@@ -33,8 +33,27 @@ services:
             - ./config/strelaysrv:/opt/strelaysrv/etc
         environment:
             - CONTAINER_NAME=strelaysrv
-            - CONTAINER_USER=run
-            - LOCAL_GID=1000
-            - LOCAL_UID=1000
+        env_file:
+            - docker-compose.env
+            - docker-compose.local.env
         command: 'strelaysrv -keys /opt/strelaysrv/etc -debug -ext-address=":443" -listen=":22067" -status-srv=":22070" -pools="" -provided-by="Banovo GmbH"'
+        restart: always
+
+    syncthing:
+        build: images/syncthing
+        hostname: syncthing
+        container_name: syncthing
+        ports:
+            - "8384:8384"
+            - "22000:22000"
+            - "21027:21027/udp"
+        volumes:
+            - ./config/syncthing:/opt/syncthing/etc
+            - ./data/syncthing:/opt/syncthing/var
+        environment:
+            - CONTAINER_NAME=syncthing
+        env_file:
+            - docker-compose.env
+            - docker-compose.local.env
+        command: 'syncthing -verbose -home=/opt/syncthing/etc'
         restart: always

@@ -5,6 +5,7 @@ MAINTAINER Patrick Kaiser <docker@pk.banovo.de>
 # -----------------------------------------------------------------------------
 ENV CONTAINER_USER run
 ENV PATH "$PATH:/opt/strelaysrv/bin"
+ENV TZ "Europe/Berlin"
 
 # Copy binaries and entrypoint
 # -----------------------------------------------------------------------------
@@ -23,7 +24,6 @@ RUN set -x \
 # Base packages
 # -----------------------------------------------------------------------------
 RUN set -x \
-    && echo "Europe/Berlin" | tee /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata \
     && chmod +x /usr/local/bin/gosu \
     && chmod +x /opt/strelaysrv/bin/strelaysrv \
     && chmod +x /usr/local/bin/docker-entrypoint.sh \

@@ -31,3 +31,22 @@ strelaysrv:
     - global
   volumes:
     - '/var/docker/strelaysrv/etc:/opt/strelaysrv/etc'
+
+syncthing:
+    command: 'syncthing -verbose -home=/opt/syncthing/etc'
+    environment:
+        - CONTAINER_NAME=syncthing
+        - CONTAINER_USER=run
+        - LOCAL_UID=1000
+        - LOCAL_GID=1000
+    image: 'banovo/docker-syncthing:syncthing'
+    ports:
+        - "8384:8384"
+        - "22000:22000"
+        - "21027:21027/udp"
+    restart: always
+    roles:
+        - global
+    volumes:
+        - '/var/docker/syncthing/etc:/opt/syncthing/etc'
+        - '/var/docker/syncthing/var:/opt/syncthing/var'

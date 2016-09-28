@@ -4,13 +4,13 @@ MAINTAINER Patrick Kaiser <docker@pk.banovo.de>
 # Variables
 # -----------------------------------------------------------------------------
 ENV CONTAINER_USER run
-ENV PATH "$PATH:/opt/stdiscosrv/bin"
+ENV PATH "$PATH:/opt/syncthing/bin"
 ENV TZ "Europe/Berlin"
 
 # Copy binaries and entrypoint
 # -----------------------------------------------------------------------------
 COPY sources/gosu-amd64 /usr/local/bin/gosu
-COPY sources/stdiscosrv /opt/stdiscosrv/bin/stdiscosrv
+COPY sources/syncthing /opt/syncthing/bin/syncthing
 COPY docker-entrypoint.sh /usr/local/bin
 
 # Setup Container user
@@ -25,15 +25,19 @@ RUN set -x \
 # -----------------------------------------------------------------------------
 RUN set -x \
     && chmod +x /usr/local/bin/gosu \
-    && chmod +x /opt/stdiscosrv/bin/stdiscosrv \
+    && chmod +x /opt/syncthing/bin/syncthing \
     && chmod +x /usr/local/bin/docker-entrypoint.sh \
     && gosu nobody true \
-    && mkdir -p /opt/stdiscosrv/etc && mkdir -p /opt/stdiscosrv/var
+    && mkdir -p /opt/syncthing/etc && mkdir -p /opt/syncthing/var
 
-EXPOSE 8443
+EXPOSE 8384
+EXPOSE 22000
+EXPOSE 21027/udp
 
+VOLUME /opt/syncthing/etc
 VOLUME /opt/stdiscosrv/var
-WORKDIR /opt/stdiscosrv/bin
 
-CMD ["stdiscosrv"]
+WORKDIR /opt/syncthing/bin
+
+CMD ["syncthing"]
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
