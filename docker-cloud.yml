@@ -25,7 +25,7 @@ strelaysrv:
   image: 'banovo/docker-syncthing:strelaysrv'
   ports:
     - '443:22067'
-    - "22070:22070"
+    - '22070:22070'
   restart: always
   roles:
     - global
@@ -41,9 +41,9 @@ syncthing:
         - LOCAL_GID=1000
     image: 'banovo/docker-syncthing:syncthing'
     ports:
-        - "8384:8384"
-        - "22000:22000"
-        - "21027:21027/udp"
+        - '8384:8384'
+        - '22000:22000'
+        - '21027:21027/udp'
     restart: always
     roles:
         - global
