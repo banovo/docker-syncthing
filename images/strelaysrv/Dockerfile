@@ -8,6 +8,7 @@ ENV PATH "$PATH:/opt/strelaysrv/bin"
 ENV TZ "Europe/Berlin"
 
 # Copy binaries and entrypoint
+# Latest Release from https://build.syncthing.net/job/strelaysrv/lastSuccessfulBuild/artifact/
 # -----------------------------------------------------------------------------
 COPY sources/gosu-amd64 /usr/local/bin/gosu
 COPY sources/strelaysrv /opt/strelaysrv/bin/strelaysrv

@@ -8,6 +8,7 @@ ENV PATH "$PATH:/opt/stdiscosrv/bin"
 ENV TZ "Europe/Berlin"
 
 # Copy binaries and entrypoint
+# Latest Release from https://build.syncthing.net/job/stdiscosrv/lastSuccessfulBuild/artifact/
 # -----------------------------------------------------------------------------
 COPY sources/gosu-amd64 /usr/local/bin/gosu
 COPY sources/stdiscosrv /opt/stdiscosrv/bin/stdiscosrv

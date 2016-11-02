@@ -8,6 +8,7 @@ ENV PATH "$PATH:/opt/syncthing/bin"
 ENV TZ "Europe/Berlin"
 
 # Copy binaries and entrypoint
+# Latest Release from https://build.syncthing.net/job/syncthing/lastStableBuild/artifact/
 # -----------------------------------------------------------------------------
 COPY sources/gosu-amd64 /usr/local/bin/gosu
 COPY sources/syncthing /opt/syncthing/bin/syncthing
@@ -35,7 +36,7 @@ EXPOSE 22000
 EXPOSE 21027/udp
 
 VOLUME /opt/syncthing/etc
-VOLUME /opt/stdiscosrv/var
+VOLUME /opt/syncthing/var
 
 WORKDIR /opt/syncthing/bin
 
