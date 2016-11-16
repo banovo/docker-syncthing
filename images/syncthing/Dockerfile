@@ -14,6 +14,14 @@ COPY sources/gosu-amd64 /usr/local/bin/gosu
 COPY sources/syncthing /opt/syncthing/bin/syncthing
 COPY docker-entrypoint.sh /usr/local/bin
 
+# Install CA-Certificates and curl
+# -----------------------------------------------------------------------------
+RUN apt-get update \
+    && apt-get upgrade -y --no-install-recommends \
+    && apt-get install curl ca-certificates -y --no-install-recommends \
+    && apt-get autoremove -y \
+    && apt-get clean
+
 # Setup Container user
 # uid + guid will be changed on container startup on demand and set to values
 # defined in ENV vars
