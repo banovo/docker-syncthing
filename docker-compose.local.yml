@@ -6,14 +6,14 @@ version: '2'
 
 services:
     stdiscosrv:
-        image: 'banovo/docker-syncthing:stdiscosrv'
+        build: 'images/stdiscosrv'
         hostname: stdiscosrv
         container_name: stdiscosrv
         ports:
-            - "8443:8443"
+            - '8443:8443'
         volumes:
-            - '/var/docker/stdiscosrv/etc:/opt/stdiscosrv/etc'
-            - '/var/docker/stdiscosrv/var:/opt/stdiscosrv/var'
+            - './config/stdiscosrv:/opt/stdiscosrv/etc'
+            - './data/stdiscosrv:/opt/stdiscosrv/var'
         environment:
             - CONTAINER_NAME=stdiscosrv
         env_file:
@@ -23,14 +23,14 @@ services:
         restart: always
 
     strelaysrv:
-        image: 'banovo/docker-syncthing:strelaysrv'
+        build: 'images/strelaysrv'
         hostname: strelaysrv
         container_name: strelaysrv
         ports:
-            - "443:22067"
-            - "22070:22070"
+            - '443:22067'
+            - '22070:22070'
         volumes:
-            - '/var/docker/strelaysrv/etc:/opt/strelaysrv/etc'
+            - './config/strelaysrv:/opt/strelaysrv/etc'
         environment:
             - CONTAINER_NAME=strelaysrv
         env_file:
@@ -40,16 +40,16 @@ services:
         restart: always
 
     syncthing:
-        image: 'banovo/docker-syncthing:syncthing'
+        build: 'images/syncthing'
         hostname: syncthing
         container_name: syncthing
         ports:
-            - "8384:8384"
-            - "22000:22000"
-            - "21027:21027/udp"
+            - '8384:8384'
+            - '22000:22000'
+            - '21027:21027/udp'
         volumes:
-            - '/var/docker/syncthing/etc:/opt/syncthing/etc'
-            - '/var/docker/syncthing/var:/opt/syncthing/var'
+            - './config/syncthing:/opt/syncthing/etc'
+            - './data/syncthing:/opt/syncthing/var'
         environment:
             - CONTAINER_NAME=syncthing
         env_file:
