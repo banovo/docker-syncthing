@@ -36,7 +36,7 @@ services:
         env_file:
             - docker-compose.env
             - docker-compose.local.env
-        command: 'strelaysrv -keys /opt/strelaysrv/etc -debug -ext-address=":443" -listen=":22067" -status-srv=":22070" -pools="" -provided-by="Banovo GmbH"'
+        command: 'strelaysrv -keys /opt/strelaysrv/etc -ext-address=":443" -listen=":22067" -status-srv=":22070" -pools="" -provided-by="Banovo GmbH"'
         restart: always
 
     syncthing:
@@ -55,5 +55,5 @@ services:
         env_file:
             - docker-compose.env
             - docker-compose.local.env
-        command: 'syncthing -verbose -home=/opt/syncthing/etc'
+        command: 'syncthing -home=/opt/syncthing/etc'
         restart: always
