@@ -16,10 +16,10 @@ usermod -o -u ${LOCAL_UID} -g ${LOCAL_GID} ${CONTAINER_USER}
 
 # Fix Perms
 # -----------------------------------------------------------------------------
-echo "[`date`] Start fixing permissions for -- /home/${CONTAINER_USER} /opt/etc /opt/bin -- ..."
-echo "[`date`] Permissions in data dirs /opt/var/* wont be changed! "
-chown -R "${LOCAL_UID}":"${LOCAL_GID}" /home/${CONTAINER_USER} /opt/etc /opt/bin
-chown "${LOCAL_UID}":"${LOCAL_GID}" /opt
+echo "[`date`] Start fixing permissions for -- /home/${CONTAINER_USER} /opt/syncthing/etc /opt/syncthing/bin -- ..."
+echo "[`date`] Permissions in data dirs /opt/syncthing/var/* wont be changed! "
+chown -R "${LOCAL_UID}":"${LOCAL_GID}" /home/${CONTAINER_USER} /opt/syncthing/etc /opt/syncthing/bin
+chown "${LOCAL_UID}":"${LOCAL_GID}" /opt/syncthing
 
 # STARTING
 # If command starts with an option, prepend syncthing
